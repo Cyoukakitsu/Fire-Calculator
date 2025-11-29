@@ -8,23 +8,22 @@ function Home() {
   }
 
   return (
-    <div className="bg-gray-100 flex justify-center gap-10 h-screen w-full items-start overflow-y-auto py-4 flex-wrap">
-      <div tabIndex={0} className="collapse">
-        <div className="collapse-title font-semibold text-center text-4xl">
-          What is FIRE calculator ?
-        </div>
-        <div className="collapse-content text-1xl text-center mx-30">
+    <div className="bg-base-200 flex justify-center gap-10 min-h-screen w-full items-start overflow-y-auto py-4 flex-wrap">
+      <div className="text-center">
+        <p className="font-semibold text-4xl mb-4">What is FIRE calculator ?</p>
+
+        <p className="text-xl mx-30 font-thin">
           FIRE stands for Financial Independence, Retire Early. Our calculator
           can help you create an investment and savings plan that may allow you
           to retire years earlier than usual, joining the growing community of
           people pursuing early retirement.
-        </div>
+        </p>
       </div>
 
       {/*  左侧 ：卡片 1 */}
       <div className="flex flex-col w-full max-w-[450px]">
-        <div className="bg-white p-8 rounded-xl mt-10 w-full shadow-sm ">
-          <p className="text-xl font-bold text-center mb-6">Your Situation</p>
+        <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
+          <p className="text-2xl  font-bold text-center mb-6">Your Situation</p>
 
           <fieldset className="fieldset mb-4">
             <legend className="fieldset-legend text-base font-semibold mb-2">
@@ -50,8 +49,8 @@ function Home() {
         </div>
 
         {/* 左侧 ：卡片 2 */}
-        <div className="bg-white p-8 rounded-xl mt-10 w-full shadow-sm">
-          <p className="text-xl font-bold text-center mb-6">Your retirement</p>
+        <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+          <p className="text-2xl font-bold text-center mb-6">Your retirement</p>
           <fieldset className="fieldset mb-4">
             <legend className="fieldset-legend text-base font-semibold mb-2">
               Projection mode
@@ -123,8 +122,8 @@ function Home() {
       </div>
 
       {/*  右侧：卡片 3 */}
-      <div className="bg-white p-8 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
-        <p className="text-xl font-bold text-center mb-6">
+      <div className="bg-base-100 p-8 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
+        <p className="text-2xl font-bold text-center mb-6">
           Your investing strategy
         </p>
 
