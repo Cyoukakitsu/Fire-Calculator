@@ -181,31 +181,43 @@ function Home() {
             />
           </div>
         </fieldset>
-        <div className="divider mt-10 ">
-          <p className="font-bold">I don't have investing strategy 😫</p>
-        </div>
-        <details
-          class="collapse bg-base-100 border border-base-300"
-          name="my-accordion-det-1"
-          open
-        >
-          <summary class="collapse-title text-center ">
-            I have 3 strategy for you to choose ⬇️
-          </summary>
-          <div class="collapse-content text-base font-extralight flex justify-between">
-            <p>1. Aggressive</p>
-            <input type="checkbox" defaultChecked className="checkbox" />
+        <fieldset className="fieldset mb-4">
+          <div className="divider mt-3 ">
+            <p className="text-base font-semibold">
+              I don't have investing strategy 😫
+            </p>
           </div>
-          <div class="collapse-content text-base font-extralight flex justify-between">
-            <p>2. Balanced</p>
+          <details
+            class="collapse bg-base-100 border border-base-300"
+            name="my-accordion-det-1"
+            open
+          >
+            <summary class="collapse-title text-center">
+              I have 3 strategy for you to choose ⬇️
+            </summary>
+            <div class="collapse-content text-base font-extralight flex justify-between">
+              <p>1. Aggressive</p>
+              <input type="checkbox" defaultChecked className="checkbox" />
+            </div>
+            <div class="collapse-content text-base font-extralight flex justify-between">
+              <p>2. Balanced</p>
 
-            <input type="checkbox" defaultChecked className="checkbox" />
-          </div>
-          <div class="collapse-content text-base font-extralight flex justify-between">
-            <p>3. Conservative</p>
-            <input type="checkbox" defaultChecked className="checkbox" />
-          </div>
-        </details>
+              <input type="checkbox" defaultChecked className="checkbox" />
+            </div>
+            <div class="collapse-content text-base font-extralight flex justify-between">
+              <p>3. Conservative</p>
+              <input type="checkbox" defaultChecked className="checkbox" />
+            </div>
+          </details>
+        </fieldset>
+        <div className="divider">
+          <span className="text-base font-semibold">
+            I want to study{" "}
+            <span className="underline decoration-double underline-offset-4 cursor-pointer hover:text-gray-600 transition-colors">
+              "investment"
+            </span>
+          </span>
+        </div>
       </div>
     </div>
   );
