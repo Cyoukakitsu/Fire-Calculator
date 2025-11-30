@@ -136,6 +136,14 @@ function Home() {
             className="input input-bordered w-full"
             placeholder="50,000"
           />
+          <div className="flex items-center gap-5 min-w-0 ">
+            <p className="text-base ">Growth rate</p>
+            <input
+              type="text"
+              placeholder="5%"
+              className="input min-w-0 w-70"
+            />
+          </div>
         </fieldset>
         <fieldset className="fieldset mb-4">
           <legend className="fieldset-legend text-base font-semibold mb-2">
@@ -146,6 +154,14 @@ function Home() {
             className="input input-bordered w-full"
             placeholder="50,000"
           />
+          <div className="flex items-center gap-5 min-w-0">
+            <p className="text-base ">Growth rate</p>
+            <input
+              type="text"
+              placeholder="5%"
+              className="input min-w-0 w-70"
+            />
+          </div>
         </fieldset>
         <fieldset className="fieldset mb-4">
           <legend className="fieldset-legend text-base font-semibold mb-2">
@@ -156,7 +172,40 @@ function Home() {
             className="input input-bordered w-full"
             placeholder="50,000"
           />
+          <div className="flex items-center gap-5 min-w-0">
+            <p className="text-base ">Growth rate</p>
+            <input
+              type="text"
+              placeholder="5%"
+              className="input min-w-0 w-70"
+            />
+          </div>
         </fieldset>
+        <div className="divider mt-10 ">
+          <p className="font-bold">I don't have investing strategy 😫</p>
+        </div>
+        <details
+          class="collapse bg-base-100 border border-base-300"
+          name="my-accordion-det-1"
+          open
+        >
+          <summary class="collapse-title text-center ">
+            I have 3 strategy for you to choose ⬇️
+          </summary>
+          <div class="collapse-content text-base font-extralight flex justify-between">
+            <p>1. Aggressive</p>
+            <input type="checkbox" defaultChecked className="checkbox" />
+          </div>
+          <div class="collapse-content text-base font-extralight flex justify-between">
+            <p>2. Balanced</p>
+
+            <input type="checkbox" defaultChecked className="checkbox" />
+          </div>
+          <div class="collapse-content text-base font-extralight flex justify-between">
+            <p>3. Conservative</p>
+            <input type="checkbox" defaultChecked className="checkbox" />
+          </div>
+        </details>
       </div>
     </div>
   );
