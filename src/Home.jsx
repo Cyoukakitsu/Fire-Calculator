@@ -1,5 +1,7 @@
 import { useState } from "react";
-
+import Warren_Buffett from "./photo/Warren_Buffett.png";
+import Ray_Dalio from "./photo/Ray_Dalio.png";
+import Peter_Lynch from "./photo/Peter_Lynch.png";
 function Home() {
   const [AnnualExpensesChange, setAnnualExpensesChange] = useState(3);
 
@@ -192,22 +194,68 @@ function Home() {
             name="my-accordion-det-1"
             open
           >
-            <summary class="collapse-title text-center">
-              I have 3 strategy for you to choose ⬇️
+            <summary class="collapse-title text-center font-bold">
+              Three investors' strategies for you to choose ⬇️
             </summary>
-            <div class="collapse-content text-base font-extralight flex justify-between">
-              <p>1. Aggressive</p>
-              <input type="checkbox" defaultChecked className="checkbox" />
+            <div className="carousel w-full">
+              <div id="slide1" className="carousel-item relative w-full">
+                <img
+                  src={Warren_Buffett}
+                  alt="Warren Buffett"
+                  className="w-full rounded-xl"
+                />
+
+                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                  <a href="#slide4" className="btn btn-circle btn-xs">
+                    ❮
+                  </a>
+                  <a href="#slide2" className="btn btn-circle btn-xs">
+                    ❯
+                  </a>
+                </div>
+              </div>
+              <div id="slide2" className="carousel-item relative w-full">
+                <img
+                  src={Ray_Dalio}
+                  alt="Ray Dalio"
+                  className="w-full rounded-xl"
+                />
+                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                  <a href="#slide1" className="btn btn-circle btn-xs">
+                    ❮
+                  </a>
+                  <a href="#slide3" className="btn btn-circle btn-xs">
+                    ❯
+                  </a>
+                </div>
+              </div>
+              <div id="slide3" className="carousel-item relative w-full">
+                <img
+                  src={Peter_Lynch}
+                  alt="Peter Lynch"
+                  className="w-full rounded-xl"
+                />
+                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                  <a href="#slide2" className="btn btn-circle btn-xs ">
+                    ❮
+                  </a>
+                  <a href="#slide4" className="btn btn-circle btn-xs">
+                    ❯
+                  </a>
+                </div>
+              </div>
+            </div>
+            {/* <div class="collapse-content text-base font-extralight flex justify-between">
+              <p>1. Aggressive : </p>
+              <p> 40 | 40 | 20 </p>
             </div>
             <div class="collapse-content text-base font-extralight flex justify-between">
               <p>2. Balanced</p>
-
-              <input type="checkbox" defaultChecked className="checkbox" />
+              <p> </p>
             </div>
             <div class="collapse-content text-base font-extralight flex justify-between">
               <p>3. Conservative</p>
-              <input type="checkbox" defaultChecked className="checkbox" />
-            </div>
+            </div> */}
           </details>
         </fieldset>
         <div className="divider">

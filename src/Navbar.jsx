@@ -1,5 +1,4 @@
 // import { useState } from 'react';
-import { FaMoon } from "react-icons/fa";
 
 function Navbar() {
   return (
