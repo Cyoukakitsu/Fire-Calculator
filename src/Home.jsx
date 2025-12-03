@@ -124,12 +124,12 @@ function Home() {
       </div>
 
       {/*  右侧：卡片 3 */}
-      <div className="bg-base-100 p-8 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
+      <div className="bg-base-100 p-8 pt-1 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
         <p className="text-2xl font-bold text-center mb-6">
           Your investing strategy
         </p>
 
-        <fieldset className="fieldset mb-4">
+        <fieldset className="fieldset mb-2">
           <legend className="fieldset-legend text-base font-semibold mb-2">
             Stocks / ETFs Investment monthly
           </legend>
@@ -147,7 +147,7 @@ function Home() {
             />
           </div>
         </fieldset>
-        <fieldset className="fieldset mb-4">
+        <fieldset className="fieldset mb-2">
           <legend className="fieldset-legend text-base font-semibold mb-2">
             MMF / Bonds Investment monthly
           </legend>
@@ -165,7 +165,7 @@ function Home() {
             />
           </div>
         </fieldset>
-        <fieldset className="fieldset mb-4">
+        <fieldset className="fieldset mb-2">
           <legend className="fieldset-legend text-base font-semibold mb-2">
             Cash / Savings monthly
           </legend>
@@ -183,7 +183,7 @@ function Home() {
             />
           </div>
         </fieldset>
-        <fieldset className="fieldset mb-4">
+        <fieldset className="fieldset">
           <div className="divider mt-3 ">
             <p className="text-base font-semibold">
               I don't have investing strategy 😫
@@ -258,47 +258,6 @@ function Home() {
             </div> */}
           </details>
         </fieldset>
-        <div className="divider">
-          <span className="text-base font-semibold">
-            I want to study{" "}
-            <span className="underline decoration-double underline-offset-4 cursor-pointer hover:text-gray-600 transition-colors">
-              "investment"
-              {/*TODO */}
-              <div className="drawer drawer-end">
-                <input
-                  id="my-drawer-5"
-                  type="checkbox"
-                  className="drawer-toggle"
-                />
-                <div className="drawer-content">
-                  {/* Page content here */}
-                  <label
-                    htmlFor="my-drawer-5"
-                    className="drawer-button btn btn-primary"
-                  >
-                    Open drawer
-                  </label>
-                </div>
-                <div className="drawer-side">
-                  <label
-                    htmlFor="my-drawer-5"
-                    aria-label="close sidebar"
-                    className="drawer-overlay"
-                  ></label>
-                  <ul className="menu bg-base-200 min-h-full w-80 p-4">
-                    {/* Sidebar content here */}
-                    <li>
-                      <a>Sidebar Item 1</a>
-                    </li>
-                    <li>
-                      <a>Sidebar Item 2</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </span>
-          </span>
-        </div>
       </div>
     </div>
   );
