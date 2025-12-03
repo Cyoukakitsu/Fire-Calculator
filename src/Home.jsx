@@ -249,24 +249,29 @@ function Home() {
                   </div>
                 </div>
               </div>
-              {/* <div class="collapse-content text-base font-extralight flex justify-between">
-              <p>1. Aggressive : </p>
-              <p> 40 | 40 | 20 </p>
-            </div>
-            <div class="collapse-content text-base font-extralight flex justify-between">
-              <p>2. Balanced</p>
-              <p> </p>
-            </div>
-            <div class="collapse-content text-base font-extralight flex justify-between">
-              <p>3. Conservative</p>
-            </div> */}
             </details>
           </fieldset>
         </div>
       </div>
+
+      {/* 中间：按钮 */}
       <button className="btn btn-neutral w-80 btn-outline mb-10 text-lg">
         Analyze
       </button>
+
+      {/* 结果显示 */}
+      <div>
+        {/* 头部：自由之路 */}
+        <div className="text-center">
+          <p className="font-semibold text-4xl mb-1">Your FreeDom Path</p>
+          <p className="text-xl mx-30 font-thin">
+            💸 Financial projection based on current strategy
+          </p>
+        </div>
+        {/* 核心区：年龄 金额等 */}
+        {/* 视觉图表区 */}
+        {/* 复利 */}
+      </div>
     </div>
   );
 }
