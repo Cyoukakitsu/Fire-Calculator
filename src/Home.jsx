@@ -301,25 +301,25 @@ function Home() {
             ></progress>
             <div className="flex items-center justify-center gap-10">
               <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-black"></div>
+                <div className="w-3 h-3 bg-base-content"></div>
                 <p>Principal</p>
               </div>
               <div className="flex items-center  gap-3">
-                <div className="w-3 h-3 bg-gray-300"></div>
+                <div className="w-3 h-3 bg-gray-400"></div>
                 <p>Total Returns</p>
               </div>
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4 card text-center ">
-            <div className="card-body bg-gray-100  ">
+            <div className="card-body bg-base-300  ">
               Stocks / ETFs Investment
               <p className="text-4xl font-bold">$ 10,000</p>
             </div>
-            <div className="card-body bg-gray-100">
+            <div className="card-body bg-base-300">
               MMF / Bonds Investment
               <p className="text-4xl font-bold">$ 10,000</p>
             </div>
-            <div className="card-body bg-gray-100">
+            <div className="card-body bg-base-300">
               Cash / Savings
               <p className="text-4xl font-bold">$ 10,000</p>
             </div>
