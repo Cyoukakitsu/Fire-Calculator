@@ -128,13 +128,16 @@ function Home() {
         </div>
 
         {/*  右侧：卡片 3 */}
-        <div className="bg-base-100 p-8 pt-1 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
+        <div className="bg-base-100 p-8 pt-8 pb-4 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
           <p className="text-2xl font-bold text-center mb-6">
             Your investing strategy
           </p>
 
           <fieldset className="fieldset mb-2">
-            <legend className="fieldset-legend text-base font-semibold mb-2">
+            <legend
+              className="fieldset-legend text-base font-semibold mb-1
+"
+            >
               Stocks / ETFs Investment monthly
             </legend>
             <input
@@ -152,7 +155,7 @@ function Home() {
             </div>
           </fieldset>
           <fieldset className="fieldset mb-2">
-            <legend className="fieldset-legend text-base font-semibold mb-2">
+            <legend className="fieldset-legend text-base font-semibold mb-1">
               MMF / Bonds Investment monthly
             </legend>
             <input
@@ -170,7 +173,7 @@ function Home() {
             </div>
           </fieldset>
           <fieldset className="fieldset mb-2">
-            <legend className="fieldset-legend text-base font-semibold mb-2">
+            <legend className="fieldset-legend text-base font-semibold mb-1">
               Cash / Savings monthly
             </legend>
             <input
@@ -260,17 +263,68 @@ function Home() {
       </button>
 
       {/* 结果显示 */}
-      <div>
+      <div className="flex flex-col items-center max-w-4xl w-full">
         {/* 头部：自由之路 */}
         <div className="text-center">
-          <p className="font-semibold text-4xl mb-1">Your FreeDom Path</p>
+          <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
           <p className="text-xl mx-30 font-thin">
             💸 Financial projection based on current strategy
           </p>
         </div>
-        {/* 核心区：年龄 金额等 */}
+        <div className="w-full  px-4">
+          {/* 核心区：年龄 金额等 */}
+          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+            <p className="text-2xl font-bold text-center mb-6">Result</p>
+            <div className="flex justify-between text-center">
+              <div>
+                <p className="text-gray-400">Fire Age</p>
+                <p className="text-5xl font-bold">45 years old</p>
+              </div>
+              <div>
+                <p className="text-gray-400">Target Number</p>
+                <p className="text-5xl font-bold">¥15,000,000</p>
+              </div>
+            </div>
+          </div>
+        </div>
         {/* 视觉图表区 */}
-        {/* 复利 */}
+
+        <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
+          <p className="text-2xl font-bold text-center mb-6">
+            How your money grows
+          </p>
+          <div className="p-4">
+            <progress
+              className="progress w-full"
+              value={30}
+              max="100"
+            ></progress>
+            <div className="flex items-center justify-center gap-10">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-black"></div>
+                <p>Principal</p>
+              </div>
+              <div className="flex items-center  gap-3">
+                <div className="w-3 h-3 bg-gray-300"></div>
+                <p>Total Returns</p>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-4 card text-center ">
+            <div className="card-body bg-gray-100  ">
+              Stocks / ETFs Investment
+              <p className="text-4xl font-bold">$ 10,000</p>
+            </div>
+            <div className="card-body bg-gray-100">
+              MMF / Bonds Investment
+              <p className="text-4xl font-bold">$ 10,000</p>
+            </div>
+            <div className="card-body bg-gray-100">
+              Cash / Savings
+              <p className="text-4xl font-bold">$ 10,000</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
