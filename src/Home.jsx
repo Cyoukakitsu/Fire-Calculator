@@ -287,7 +287,8 @@ function Home() {
             </div>
           </div>
         </div>
-        {/* 视觉图表区 */}
+        {/* 视觉图表区 */
+        /* 作为version2的时候添加 */}
 
         <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
           <p className="text-2xl font-bold text-center mb-6">
