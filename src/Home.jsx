@@ -138,7 +138,7 @@ function Home() {
               className="fieldset-legend text-base font-semibold mb-1
 "
             >
-              Stocks / ETFs Investment monthly
+              Stocks / ETFs Investment yearly
             </legend>
             <input
               type="text"
@@ -156,7 +156,7 @@ function Home() {
           </fieldset>
           <fieldset className="fieldset mb-2">
             <legend className="fieldset-legend text-base font-semibold mb-1">
-              MMF / Bonds Investment monthly
+              MMF / Bonds Investment yearly
             </legend>
             <input
               type="text"
@@ -174,7 +174,7 @@ function Home() {
           </fieldset>
           <fieldset className="fieldset mb-2">
             <legend className="fieldset-legend text-base font-semibold mb-1">
-              Cash / Savings monthly
+              Cash / Savings yearly
             </legend>
             <input
               type="text"
