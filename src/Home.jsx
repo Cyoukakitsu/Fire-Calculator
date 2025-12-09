@@ -1,13 +1,43 @@
 import { useState } from "react";
+
 import Warren_Buffett from "./photo/Warren_Buffett.png";
 import Ray_Dalio from "./photo/Ray_Dalio.png";
 import Peter_Lynch from "./photo/Peter_Lynch.png";
-function Home() {
-  const [AnnualExpensesChange, setAnnualExpensesChange] = useState(3);
 
-  function handleChange(event) {
-    setAnnualExpensesChange(Number(event.target.value));
-  }
+import { calculateFireResult } from "/src/hooks/calculateFireResult.js";
+
+function Home() {
+  const [inputs, setInputs] = useState({
+    currentAge: 25,
+    currentSavings: 1000000,
+    targetAge: 65,
+    annualSpending: 2000000,
+    inflationRate: 3,
+
+    // --- 修改点：改为 Yearly，默认值相应变大 ---
+    stockYearly: 600000, // 以前是月投5万，现在年投60万
+    stockReturn: 7,
+    bondYearly: 360000, // 3万 * 12
+    bondReturn: 4,
+    cashYearly: 240000, // 2万 * 12
+    cashReturn: 1,
+  });
+
+  const [result, setResult] = useState(null);
+
+  const handleInputChange = (field, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      [field]: value === "" ? "" : Number(value),
+    }));
+  };
+
+  const formatMoney = (num) => "¥ " + Number(num).toLocaleString();
+
+  const handleAnalyze = () => {
+    const calculatedResult = calculateFireResult(inputs);
+    setResult(calculatedResult);
+  };
 
   return (
     <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto py-4">
@@ -21,6 +51,7 @@ function Home() {
           people pursuing early retirement.
         </p>
       </div>
+
       <div className="flex justify-center gap-10 flex-wrap items-start w-full px-4 mb-10">
         {/*  左侧 ：卡片 1 */}
         <div className="flex flex-col w-full max-w-[450px]">
@@ -34,9 +65,14 @@ function Home() {
                 Current Age
               </legend>
               <input
-                type="text"
+                type="number"
+                min="0"
                 className="input input-bordered w-full"
                 placeholder="25"
+                value={inputs.currentAge}
+                onChange={(e) =>
+                  handleInputChange("currentAge", e.target.value)
+                }
               />
             </fieldset>
 
@@ -45,9 +81,14 @@ function Home() {
                 Current Savings
               </legend>
               <input
-                type="text"
+                type="number"
+                min="0"
                 className="input input-bordered w-full"
                 placeholder="1,000,000"
+                value={inputs.currentSavings}
+                onChange={(e) =>
+                  handleInputChange("currentSavings", e.target.value)
+                }
               />
             </fieldset>
           </div>
@@ -59,12 +100,14 @@ function Home() {
             </p>
             <fieldset className="fieldset mb-4">
               <legend className="fieldset-legend text-base font-semibold mb-2">
-                Projection mode
+                Target Age
               </legend>
               <input
-                type="text"
+                type="number"
+                min="0"
                 className="input input-bordered w-full"
-                placeholder="65"
+                value={inputs.targetAge}
+                onChange={(e) => handleInputChange("targetAge", e.target.value)}
               />
             </fieldset>
             <fieldset className="fieldset mb-4">
@@ -72,29 +115,35 @@ function Home() {
                 Annual spending
               </legend>
               <input
-                type="text"
+                type="number"
+                min="0"
                 className="input input-bordered w-full"
-                placeholder="50000"
+                value={inputs.annualSpending}
+                onChange={(e) =>
+                  handleInputChange("annualSpending", e.target.value)
+                }
               />
             </fieldset>
 
             <fieldset className="fieldset mb-4">
               <legend className="fieldset-legend text-base font-semibold mb-2">
-                Annual Expenses
+                Annual Inflation
               </legend>
 
               <div className="flex gap-9">
-                <div className="text-base">{AnnualExpensesChange}%</div>
+                <div className="text-base">{inputs.inflationRate}%</div>
 
                 <div className="w-full max-w-xs ">
                   <input
                     type="range"
                     min={0}
-                    max="10"
-                    value={AnnualExpensesChange}
+                    max="6"
                     className="range"
                     step="1"
-                    onChange={handleChange}
+                    value={inputs.inflationRate}
+                    onChange={(e) =>
+                      handleInputChange("inflationRate", e.target.value)
+                    }
                   />
                   <div className="flex justify-between px-1 mt-2 text-xs">
                     <span>|</span>
@@ -104,22 +153,15 @@ function Home() {
                     <span>|</span>
                     <span>|</span>
                     <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
                   </div>
                   <div className="flex justify-between px-1 mt-2 text-xs">
+                    <span>0</span>
                     <span>1</span>
                     <span>2</span>
                     <span>3</span>
                     <span>4</span>
                     <span>5</span>
                     <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
                   </div>
                 </div>
               </div>
@@ -134,23 +176,27 @@ function Home() {
           </p>
 
           <fieldset className="fieldset mb-2">
-            <legend
-              className="fieldset-legend text-base font-semibold mb-1
-"
-            >
+            <legend className="fieldset-legend text-base font-semibold mb-1">
               Stocks / ETFs Investment yearly
             </legend>
             <input
-              type="text"
+              type="number"
+              min="0"
               className="input input-bordered w-full"
-              placeholder="50,000"
+              placeholder="600,000"
+              value={inputs.stockYearly}
+              onChange={(e) => handleInputChange("stockYearly", e.target.value)}
             />
             <div className="flex items-center gap-5 min-w-0 ">
               <p className="text-base ">Growth rate</p>
               <input
-                type="text"
-                placeholder="5%"
-                className="input min-w-0 w-70"
+                type="number"
+                step="0.1"
+                className="input input-bordered input-sm w-20 join-item text-right"
+                value={inputs.stockReturn}
+                onChange={(e) =>
+                  handleInputChange("stockReturn", e.target.value)
+                }
               />
             </div>
           </fieldset>
@@ -159,16 +205,23 @@ function Home() {
               MMF / Bonds Investment yearly
             </legend>
             <input
-              type="text"
+              type="number"
+              min="0"
               className="input input-bordered w-full"
-              placeholder="50,000"
+              // --- 修改 value 绑定 ---
+              value={inputs.bondYearly}
+              onChange={(e) => handleInputChange("bondYearly", e.target.value)}
             />
             <div className="flex items-center gap-5 min-w-0">
               <p className="text-base ">Growth rate</p>
               <input
-                type="text"
-                placeholder="5%"
-                className="input min-w-0 w-70"
+                type="number"
+                step="0.1"
+                className="input input-bordered input-sm w-20 join-item text-right"
+                value={inputs.bondReturn}
+                onChange={(e) =>
+                  handleInputChange("bondReturn", e.target.value)
+                }
               />
             </div>
           </fieldset>
@@ -177,16 +230,23 @@ function Home() {
               Cash / Savings yearly
             </legend>
             <input
-              type="text"
+              type="number"
+              min="0"
               className="input input-bordered w-full"
-              placeholder="50,000"
+              // --- 修改 value 绑定 ---
+              value={inputs.cashYearly}
+              onChange={(e) => handleInputChange("cashYearly", e.target.value)}
             />
             <div className="flex items-center gap-5 min-w-0">
               <p className="text-base ">Growth rate</p>
               <input
-                type="text"
-                placeholder="5%"
-                className="input min-w-0 w-70"
+                type="number"
+                step="0.1"
+                className="input input-bordered input-sm w-20 join-item text-right"
+                value={inputs.cashReturn}
+                onChange={(e) =>
+                  handleInputChange("cashReturn", e.target.value)
+                }
               />
             </div>
           </fieldset>
@@ -258,75 +318,90 @@ function Home() {
       </div>
 
       {/* 中间：按钮 */}
-      <button className="btn btn-neutral w-80 btn-outline mb-10 text-lg">
+      <button
+        className="btn btn-neutral w-80 btn-outline mb-10 text-lg"
+        onClick={handleAnalyze}
+      >
         Analyze
       </button>
 
       {/* 结果显示 */}
-      <div className="flex flex-col items-center max-w-4xl w-full">
-        {/* 头部：自由之路 */}
-        <div className="text-center">
-          <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
-          <p className="text-xl mx-30 font-thin">
-            💸 Financial projection based on current strategy
-          </p>
-        </div>
-        <div className="w-full  px-4">
-          {/* 核心区：年龄 金额等 */}
-          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
-            <p className="text-2xl font-bold text-center mb-6">Result</p>
-            <div className="flex justify-between text-center">
-              <div>
-                <p className="text-gray-400">Fire Age</p>
-                <p className="text-5xl font-bold">45 years old</p>
-              </div>
-              <div>
-                <p className="text-gray-400">Target Number</p>
-                <p className="text-5xl font-bold">¥15,000,000</p>
+      {result && (
+        <div className="flex flex-col items-center max-w-4xl w-full">
+          {/* 头部：自由之路 */}
+          <div className="text-center">
+            <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
+            <p className="text-xl mx-30 font-thin">
+              💸 Financial projection based on current strategy
+            </p>
+          </div>
+          <div className="w-full  px-4">
+            {/* 核心区：年龄 金额等 */}
+            <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+              <p className="text-2xl font-bold text-center mb-6">Result</p>
+              <div className="flex justify-between text-center">
+                <div>
+                  <p className="text-gray-400">Fire Age</p>
+                  <p className="text-5xl font-bold">
+                    {result.fireAge} years old
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-400">Target Number</p>
+                  <p className="text-5xl font-bold">
+                    {formatMoney(result.targetNumber)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* 视觉图表区 */
-        /* 作为version2的时候添加 */}
+          {/* 视觉图表区 */
+          /* 作为version2的时候添加 */}
 
-        <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
-          <p className="text-2xl font-bold text-center mb-6">
-            How your money grows
-          </p>
-          <div className="p-4">
-            <progress
-              className="progress w-full"
-              value={30}
-              max="100"
-            ></progress>
-            <div className="flex items-center justify-center gap-10">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-base-content"></div>
-                <p>Principal</p>
+          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
+            <p className="text-2xl font-bold text-center mb-6">
+              How your money grows
+            </p>
+            <div className="p-4">
+              <progress
+                className="progress w-full"
+                max="100"
+                value={(result.principal / result.finalAssets) * 100}
+              ></progress>
+              <div className="flex items-center justify-center gap-10">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-base-content"></div>
+                  <p>Principal: {formatMoney(result.principal)}</p>
+                </div>
+                <div className="flex items-center  gap-3">
+                  <div className="w-3 h-3 bg-gray-400"></div>
+                  <p>Interest: {formatMoney(result.interest)}</p>
+                </div>
               </div>
-              <div className="flex items-center  gap-3">
-                <div className="w-3 h-3 bg-gray-400"></div>
-                <p>Total Returns</p>
+            </div>
+            <div className="grid grid-cols-3 gap-4 card text-center ">
+              <div className="card-body bg-base-300  ">
+                Stocks / ETFs Investment
+                <p className="text-4xl font-bold">
+                  {formatMoney(result.breakdown.stock)}
+                </p>
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-4 card text-center ">
-            <div className="card-body bg-base-300  ">
-              Stocks / ETFs Investment
-              <p className="text-4xl font-bold">$ 10,000</p>
-            </div>
-            <div className="card-body bg-base-300">
-              MMF / Bonds Investment
-              <p className="text-4xl font-bold">$ 10,000</p>
-            </div>
-            <div className="card-body bg-base-300">
-              Cash / Savings
-              <p className="text-4xl font-bold">$ 10,000</p>
+              <div className="card-body bg-base-300">
+                MMF / Bonds Investment
+                <p className="text-4xl font-bold">
+                  {formatMoney(result.breakdown.bond)}
+                </p>
+              </div>
+              <div className="card-body bg-base-300">
+                Cash / Savings
+                <p className="text-4xl font-bold">
+                  {formatMoney(result.breakdown.cash)}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
