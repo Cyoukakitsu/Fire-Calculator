@@ -23,14 +23,17 @@
 ```bash
 git clone [https://github.com/your-username/fire-calculator.git](https://github.com/your-username/fire-calculator.git)
 cd fire-calculator
+```
 
 ### 2. 安装依赖
 ```bash
 npm install
+```
 
 ### 3. 启动本地开发服务器
 ```bash
 npm run dev
+```
 
 ## 📂 项目结构
 
@@ -45,6 +48,7 @@ src/
 ├── App.jsx              # 根组件
 ├── main.jsx             # React 入口文件
 └── index.css            # Tailwind CSS 配置文件
+```
 
 ## 📝 开发计划 (To-Do)
 
