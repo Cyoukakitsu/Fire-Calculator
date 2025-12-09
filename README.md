@@ -13,6 +13,7 @@
 
 * **核心框架**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
 * **样式库**: [Tailwind CSS](https://tailwindcss.com/)
+* **UI库**: [DaisyUI](https://daisyui.com/) 
 * **图表库**: [Recharts](https://recharts.org/) (用于数据可视化)
 * **图标库**: [Lucide React](https://lucide.dev/)
 * **测试 (可选)**: Vitest (用于核心计算逻辑测试)
