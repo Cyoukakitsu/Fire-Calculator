@@ -41,8 +41,11 @@ function Home() {
 
   return (
     <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto py-4">
-      <div className="text-center max-w-4xl mb-8">
-        <p className="font-semibold text-4xl mb-4">What is FIRE calculator ?</p>
+      <div className="text-center max-w-8xl mb-5 ">
+        <p className="font-semibold text-6xl mb-4">
+          FIRE calculator
+          <div className="text-4xl mt-4">Find your Free Path</div>
+        </p>
 
         <p className="text-xl mx-30 font-thin">
           FIRE stands for Financial Independence, Retire Early. Our calculator
@@ -54,124 +57,173 @@ function Home() {
 
       <div className="flex justify-center gap-10 flex-wrap items-start w-full px-4 mb-10">
         {/*  左侧 ：卡片 1 */}
-        <div className="flex flex-col w-full max-w-[450px]">
-          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
-            <p className="text-2xl  font-bold text-center mb-6">
+        <div className="flex flex-col w-full max-w-[650px]  ">
+          {/* Your Situation */}
+          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+            <p className="text-4xl font-bold text-center mb-6">
               Your Situation
             </p>
-
-            <fieldset className="fieldset mb-4">
-              <legend className="fieldset-legend text-base font-semibold mb-2">
+            {/* Current Age */}
+            <div className="flex flex-row items-center  gap-4 mb-4">
+              <label className="text-xl font-semibold w-32 whitespace-nowrap">
                 Current Age
-              </legend>
+              </label>
               <input
                 type="number"
                 min="0"
-                className="input input-bordered w-full"
+                className="input input-bordered w-80 ml-auto"
                 placeholder="25"
                 value={inputs.currentAge}
                 onChange={(e) =>
                   handleInputChange("currentAge", e.target.value)
                 }
               />
-            </fieldset>
+            </div>
 
-            <fieldset className="fieldset mb-4">
-              <legend className="fieldset-legend text-base font-semibold mb-2">
+            {/* Current Savings  */}
+            <div className="flex flex-row items-center gap-4 mb-4">
+              <label className="text-xl font-semibold w-32 whitespace-nowrap">
                 Current Savings
-              </legend>
+              </label>
               <input
                 type="number"
                 min="0"
-                className="input input-bordered w-full"
+                className="input input-bordered w-80 ml-auto"
                 placeholder="1,000,000"
                 value={inputs.currentSavings}
                 onChange={(e) =>
                   handleInputChange("currentSavings", e.target.value)
                 }
               />
-            </fieldset>
+            </div>
           </div>
 
-          {/* 左侧 ：卡片 2 */}
+          {/* 左侧：卡片 2 - Your retirement */}
           <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
-            <p className="text-2xl font-bold text-center mb-6">
+            <p className="text-4xl font-bold text-center mb-6">
               Your retirement
             </p>
-            <fieldset className="fieldset mb-4">
-              <legend className="fieldset-legend text-base font-semibold mb-2">
-                Target Age
-              </legend>
+            {/* Target Age */}
+            <div className="flex flex-row items-center gap-4 mb-4">
+              <label className="text-xl font-semibold w-32 whitespace-nowrap">
+                Post-FIRE Annual Spending
+              </label>
               <input
                 type="number"
                 min="0"
-                className="input input-bordered w-full"
+                className="input input-bordered w-80 ml-auto"
                 value={inputs.targetAge}
                 onChange={(e) => handleInputChange("targetAge", e.target.value)}
               />
-            </fieldset>
-            <fieldset className="fieldset mb-4">
-              <legend className="fieldset-legend text-base font-semibold mb-2">
-                Annual spending
-              </legend>
-              <input
-                type="number"
-                min="0"
-                className="input input-bordered w-full"
-                value={inputs.annualSpending}
-                onChange={(e) =>
-                  handleInputChange("annualSpending", e.target.value)
-                }
-              />
-            </fieldset>
+            </div>
 
-            <fieldset className="fieldset mb-4">
-              <legend className="fieldset-legend text-base font-semibold mb-2">
+            {/* Annual Inflation - 水平布局（滑块部分需特殊处理） */}
+            <div className="flex flex-row items-center gap-4 mb-2">
+              <label className="text-xl font-semibold w-32 whitespace-nowrap">
                 Annual Inflation
-              </legend>
+              </label>
+              <input
+                type="range"
+                min={0}
+                max="100"
+                value="40"
+                className="range range-neutral ml-auto"
+              />
+            </div>
 
-              <div className="flex gap-9">
-                <div className="text-base">{inputs.inflationRate}%</div>
+            {/* Life Modren */}
 
-                <div className="w-full max-w-xs ">
-                  <input
-                    type="range"
-                    min={0}
-                    max="6"
-                    className="range"
-                    step="1"
-                    value={inputs.inflationRate}
-                    onChange={(e) =>
-                      handleInputChange("inflationRate", e.target.value)
-                    }
-                  />
-                  <div className="flex justify-between px-1 mt-2 text-xs">
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                  </div>
-                  <div className="flex justify-between px-1 mt-2 text-xs">
-                    <span>0</span>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                  </div>
-                </div>
+            <fieldset className="fieldset">
+              <div className="divider mt-3 ">
+                <p className="text-base font-semibold">
+                  I'm not sure about my spending after FIRE 😫
+                </p>
               </div>
+              <details
+                class="collapse bg-base-100 border border-base-300"
+                name="my-accordion-det-1"
+                open
+              >
+                <summary class="collapse-title text-center font-bold">
+                  5 FIRE models for you to choose from ⬇️
+                </summary>
+
+                <details
+                  class="collapse bg-base-100 border border-base-300"
+                  name="my-accordion-det-1"
+                  open
+                >
+                  <summary class="collapse-title font-semibold">
+                    1. Lean FIRE 🍜One-sentence introduction: A minimalist
+                    lifestyle focused on extreme frugality and keeping basic
+                    living expenses very low to achieve retirement quickly.
+                    Approximate Annual Spending (JPY): ~1.5 - 2.5 Million JPY
+                  </summary>
+                </details>
+                <details
+                  class="collapse bg-base-100 border border-base-300"
+                  name="my-accordion-det-1"
+                  open
+                >
+                  <summary class="collapse-title font-semibold">
+                    2. Fat FIRE 🍷 One-sentence introduction: A luxurious
+                    retirement lifestyle with a high budget, allowing for
+                    abundant spending and travel without compromising quality of
+                    life. Approximate Annual Spending (JPY): 10 Million JPY+
+                  </summary>
+                </details>
+                <details
+                  class="collapse bg-base-100 border border-base-300"
+                  name="my-accordion-det-1"
+                  open
+                >
+                  <summary class="collapse-title font-semibold">
+                    3. Traditional / Regular FIRE 🏠 One-sentence introduction:
+                    The classic approach aiming for a comfortable, average
+                    middle-class retirement lifestyle that maintains one's
+                    pre-retirement standard of living. Approximate Annual
+                    Spending (JPY): ~4 - 6 Million JPY
+                  </summary>
+                </details>
+                <details
+                  class="collapse bg-base-100 border border-base-300"
+                  name="my-accordion-det-1"
+                  open
+                >
+                  <summary class="collapse-title font-semibold">
+                    4. Barista FIRE ☕️ One-sentence introduction: A
+                    semi-retirement strategy involving switching from
+                    high-stress careers to low-stress part-time work to cover
+                    current living expenses, letting existing investments grow
+                    in the background. Approximate Annual Spending (JPY): ~3 - 5
+                    Million JPY (Note: A portion of this is covered by part-time
+                    income.)
+                  </summary>
+                </details>
+                <details
+                  class="collapse bg-base-100 border border-base-300"
+                  name="my-accordion-det-1"
+                  open
+                >
+                  <summary class="collapse-title font-semibold">
+                    5. Coast FIRE 🏂 One-sentence introduction: Achieving a
+                    savings milestone early in life where compound interest
+                    alone will guarantee future retirement funding, allowing one
+                    to stop saving entirely and spend their full current income.
+                    Approximate Annual Spending (JPY): Varies based on current
+                    income (e.g., 4 - 8 Million JPY+), as the defining
+                    characteristic is spending one's full salary without needing
+                    to save further.
+                  </summary>
+                </details>
+              </details>
             </fieldset>
           </div>
         </div>
 
         {/*  右侧：卡片 3 */}
-        <div className="bg-base-100 p-8 pt-8 pb-4 rounded-xl mt-10 w-full max-w-[450px] shadow-sm">
-          <p className="text-2xl font-bold text-center mb-6">
+        <div className="bg-base-100 p-8 pt-8 pb-4 rounded-xl mt-10 w-full max-w-[650px] shadow-sm">
+          <p className="text-4xl font-bold text-center mb-6">
             Your investing strategy
           </p>
 
