@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 
 import Warren_Buffett from "./photo/Warren_Buffett.png";
 import Ray_Dalio from "./photo/Ray_Dalio.png";

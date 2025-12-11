@@ -1,0 +1,67 @@
+export const calculateFireResult = (inputs) => {
+  // 1. 数据清洗：确保所有输入都是数字，防止计算错误
+  const safeInputs = {};
+  for (let key in inputs) {
+    safeInputs[key] = inputs[key] || 0;
+  }
+
+  let {
+    currentAge,
+    currentSavings,
+    targetAge,
+    annualSpending,
+    inflationRate,
+    stockYearly,
+    stockReturn,
+    bondYearly,
+    bondReturn,
+    cashYearly,
+    cashReturn,
+  } = safeInputs;
+
+  //  2. 基础参数
+  const swr = 0.04; // 4% 安全提款率
+  let fireNumber = annualSpending / swr; // 初始目标金额
+
+  //初始化投资金额
+  let stockBal = 0;
+  let bondBal = 0;
+  let cashBal = 0;
+
+  let age = currentAge;
+
+  // 总投入本金初始化 = 现有的存款
+  let totalPrincipal = currentSavings;
+
+  while (age < targetAge) {
+    //计算总资产：投资品+存款
+    const totalAssets = stockBal + bondBal + cashBal + currentSavings;
+    if (totalAssets >= fireNumber) break;
+    age++;
+
+    //投资品复利
+    stockBal = stockBal * (1 + stockReturn / 100) ** age;
+    bondBal = bondBal * (1 + bondReturn / 100) ** age;
+    cashBal = cashBal * (1 + cashReturn / 100) ** age;
+
+    //累计总投入本金
+    totalPrincipal += stockYearly + bondYearly + cashYearly;
+
+    //通胀
+    fireNumber = fireNumber * (1 + inflationRate / 100);
+  }
+
+  const finalAssets = stockBal + bondBal + cashBal + currentSavings;
+
+  return {
+    fireAge: age,
+    finalAssets: Math.round(finalAssets),
+    principal: Math.round(totalPrincipal),
+    interest: Math.round(finalAssets - totalPrincipal),
+    breakdown: {
+      stock: Math.round(stockBal),
+      bond: Math.round(bondBal),
+      cash: Math.round(cashBal + currentSavings),
+    },
+  };
+};
