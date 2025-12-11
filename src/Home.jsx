@@ -1,51 +1,17 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 import Warren_Buffett from "./photo/Warren_Buffett.png";
 import Ray_Dalio from "./photo/Ray_Dalio.png";
 import Peter_Lynch from "./photo/Peter_Lynch.png";
 
-import { calculateFireResult } from "/src/hooks/calculateFireResult.js";
-
 function Home() {
-  const [inputs, setInputs] = useState({
-    currentAge: 25,
-    currentSavings: 1000000,
-    targetAge: 65,
-    annualSpending: 2000000,
-    inflationRate: 3,
-
-    // --- 修改点：改为 Yearly，默认值相应变大 ---
-    stockYearly: 600000, // 以前是月投5万，现在年投60万
-    stockReturn: 7,
-    bondYearly: 360000, // 3万 * 12
-    bondReturn: 4,
-    cashYearly: 240000, // 2万 * 12
-    cashReturn: 1,
-  });
-
-  const [result, setResult] = useState(null);
-
-  const handleInputChange = (field, value) => {
-    setInputs((prev) => ({
-      ...prev,
-      [field]: value === "" ? "" : Number(value),
-    }));
-  };
-
-  const formatMoney = (num) => "¥ " + Number(num).toLocaleString();
-
-  const handleAnalyze = () => {
-    const calculatedResult = calculateFireResult(inputs);
-    setResult(calculatedResult);
-  };
-
   return (
     <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto py-4">
       <div className="text-center max-w-8xl mb-5 ">
-        <p className="font-semibold text-6xl mb-4">
+        <div className="font-semibold text-6xl mb-4">
           FIRE calculator
-          <div className="text-4xl mt-4">Find your Free Path</div>
-        </p>
+          <p className="text-4xl mt-4">Find your Free Path</p>
+        </div>
 
         <p className="text-xl mx-30 font-thin">
           FIRE stands for Financial Independence, Retire Early. Our calculator
@@ -73,10 +39,6 @@ function Home() {
                 min="0"
                 className="input input-bordered w-80 ml-auto"
                 placeholder="25"
-                value={inputs.currentAge}
-                onChange={(e) =>
-                  handleInputChange("currentAge", e.target.value)
-                }
               />
             </div>
 
@@ -90,16 +52,12 @@ function Home() {
                 min="0"
                 className="input input-bordered w-80 ml-auto"
                 placeholder="1,000,000"
-                value={inputs.currentSavings}
-                onChange={(e) =>
-                  handleInputChange("currentSavings", e.target.value)
-                }
               />
             </div>
           </div>
 
           {/* 左侧：卡片 2 - Your retirement */}
-          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+          <div className="bg-base-100 p-8 pb-4 rounded-xl mt-10 w-full shadow-sm">
             <p className="text-4xl font-bold text-center mb-6">
               Your retirement
             </p>
@@ -112,8 +70,6 @@ function Home() {
                 type="number"
                 min="0"
                 className="input input-bordered w-80 ml-auto"
-                value={inputs.targetAge}
-                onChange={(e) => handleInputChange("targetAge", e.target.value)}
               />
             </div>
 
@@ -126,7 +82,6 @@ function Home() {
                 type="range"
                 min={0}
                 max="100"
-                value="40"
                 className="range range-neutral ml-auto"
               />
             </div>
@@ -134,86 +89,81 @@ function Home() {
             {/* Life Modren */}
 
             <fieldset className="fieldset">
-              <div className="divider mt-3 ">
-                <p className="text-base font-semibold">
-                  I'm not sure about my spending after FIRE 😫
-                </p>
+              <div className="divider mt-14 ">
+                <p className="text-base font-light"></p>
               </div>
               <details
-                class="collapse bg-base-100 border border-base-300"
-                name="my-accordion-det-1"
+                className="collapse bg-base-100 border border-base-300 "
                 open
               >
-                <summary class="collapse-title text-center font-bold">
+                <summary className="collapse-title  font-bold btn  flex">
                   5 FIRE models for you to choose from ⬇️
                 </summary>
 
-                <details
-                  class="collapse bg-base-100 border border-base-300"
-                  name="my-accordion-det-1"
-                  open
-                >
-                  <summary class="collapse-title font-semibold">
-                    1. Lean FIRE 🍜One-sentence introduction: A minimalist
-                    lifestyle focused on extreme frugality and keeping basic
-                    living expenses very low to achieve retirement quickly.
-                    Approximate Annual Spending (JPY): ~1.5 - 2.5 Million JPY
+                <details className="collapse bg-base-100 border border-base-300">
+                  <summary className="collapse-title font-semibold">
+                    1. Lean FIRE 🍜
+                    <p className="font-light">
+                      A minimalist retirement achieved through extreme frugality
+                      and very low living expenses. <br /> Approximate Annual
+                      Spending (JPY): ~1.5 - 2.5 Million JPY
+                    </p>
                   </summary>
                 </details>
                 <details
-                  class="collapse bg-base-100 border border-base-300"
-                  name="my-accordion-det-1"
+                  className="collapse bg-base-100 border border-base-300"
                   open
                 >
-                  <summary class="collapse-title font-semibold">
-                    2. Fat FIRE 🍷 One-sentence introduction: A luxurious
-                    retirement lifestyle with a high budget, allowing for
-                    abundant spending and travel without compromising quality of
-                    life. Approximate Annual Spending (JPY): 10 Million JPY+
+                  <summary className="collapse-title font-semibold">
+                    2. Fat FIRE 🍷
+                    <p className="font-light">
+                      A luxurious, high-budget retirement with abundant spending
+                      and lifestyle indulgences. <br />
+                      Approximate Annual Spending (JPY): 10 Million JPY+
+                    </p>
                   </summary>
                 </details>
                 <details
-                  class="collapse bg-base-100 border border-base-300"
-                  name="my-accordion-det-1"
+                  className="collapse bg-base-100 border border-base-300"
                   open
                 >
-                  <summary class="collapse-title font-semibold">
-                    3. Traditional / Regular FIRE 🏠 One-sentence introduction:
-                    The classic approach aiming for a comfortable, average
-                    middle-class retirement lifestyle that maintains one's
-                    pre-retirement standard of living. Approximate Annual
-                    Spending (JPY): ~4 - 6 Million JPY
+                  <summary className="collapse-title font-semibold">
+                    3. Traditional / Regular FIRE 🏠
+                    <p className="font-light">
+                      The standard approach aiming for a comfortable, average
+                      middle-class retirement lifestyle.
+                      <br />
+                      Approximate Annual Spending (JPY): ~4 - 6 Million JPY
+                    </p>
                   </summary>
                 </details>
                 <details
-                  class="collapse bg-base-100 border border-base-300"
-                  name="my-accordion-det-1"
+                  className="collapse bg-base-100 border border-base-300"
                   open
                 >
-                  <summary class="collapse-title font-semibold">
-                    4. Barista FIRE ☕️ One-sentence introduction: A
-                    semi-retirement strategy involving switching from
-                    high-stress careers to low-stress part-time work to cover
-                    current living expenses, letting existing investments grow
-                    in the background. Approximate Annual Spending (JPY): ~3 - 5
-                    Million JPY (Note: A portion of this is covered by part-time
-                    income.)
+                  <summary className="collapse-title font-semibold">
+                    4. Barista FIRE ☕️
+                    <p className="font-light">
+                      Semi-retirement using low-stress part-time income to cover
+                      current expenses while letting investments grow.
+                      <br />
+                      Approximate Annual Spending (JPY): ~3 - 5 Million JPY
+                    </p>
                   </summary>
                 </details>
                 <details
-                  class="collapse bg-base-100 border border-base-300"
-                  name="my-accordion-det-1"
+                  className="collapse bg-base-100 border border-base-300"
                   open
                 >
-                  <summary class="collapse-title font-semibold">
-                    5. Coast FIRE 🏂 One-sentence introduction: Achieving a
-                    savings milestone early in life where compound interest
-                    alone will guarantee future retirement funding, allowing one
-                    to stop saving entirely and spend their full current income.
-                    Approximate Annual Spending (JPY): Varies based on current
-                    income (e.g., 4 - 8 Million JPY+), as the defining
-                    characteristic is spending one's full salary without needing
-                    to save further.
+                  <summary className="collapse-title font-semibold">
+                    5. Coast FIRE 🏂 <br />
+                    <p className="font-light">
+                      Saving enough early for compound interest to cover future
+                      retirement, allowing you to stop saving now and spend your
+                      full income.
+                      <br />
+                      Approximate Annual Spending (JPY): 4 - 8 Million JPY+
+                    </p>
                   </summary>
                 </details>
               </details>
@@ -227,6 +177,15 @@ function Home() {
             Your investing strategy
           </p>
 
+          {/* <div className="flex flex-row items-center gap-4 mb-4">
+              <label className="text-xl font-semibold w-32 whitespace-nowrap">
+                Current Savings
+              </label>
+              <input
+                type="number"
+                min="0"
+                className="input input-bordered w-80 ml-auto" */}
+
           <fieldset className="fieldset mb-2">
             <legend className="fieldset-legend text-base font-semibold mb-1">
               Stocks / ETFs Investment yearly
@@ -236,19 +195,13 @@ function Home() {
               min="0"
               className="input input-bordered w-full"
               placeholder="600,000"
-              value={inputs.stockYearly}
-              onChange={(e) => handleInputChange("stockYearly", e.target.value)}
             />
-            <div className="flex items-center gap-5 min-w-0 ">
+            <div className="flex items-center gap-5 min-w-0 ml-100">
               <p className="text-base ">Growth rate</p>
               <input
                 type="number"
                 step="0.1"
                 className="input input-bordered input-sm w-20 join-item text-right"
-                value={inputs.stockReturn}
-                onChange={(e) =>
-                  handleInputChange("stockReturn", e.target.value)
-                }
               />
             </div>
           </fieldset>
@@ -261,19 +214,13 @@ function Home() {
               min="0"
               className="input input-bordered w-full"
               // --- 修改 value 绑定 ---
-              value={inputs.bondYearly}
-              onChange={(e) => handleInputChange("bondYearly", e.target.value)}
             />
-            <div className="flex items-center gap-5 min-w-0">
+            <div className="flex items-center gap-5 min-w-0 ml-100">
               <p className="text-base ">Growth rate</p>
               <input
                 type="number"
                 step="0.1"
                 className="input input-bordered input-sm w-20 join-item text-right"
-                value={inputs.bondReturn}
-                onChange={(e) =>
-                  handleInputChange("bondReturn", e.target.value)
-                }
               />
             </div>
           </fieldset>
@@ -286,34 +233,27 @@ function Home() {
               min="0"
               className="input input-bordered w-full"
               // --- 修改 value 绑定 ---
-              value={inputs.cashYearly}
-              onChange={(e) => handleInputChange("cashYearly", e.target.value)}
             />
-            <div className="flex items-center gap-5 min-w-0">
+            <div className="flex items-center gap-5 min-w-0 ml-100">
               <p className="text-base ">Growth rate</p>
               <input
                 type="number"
                 step="0.1"
                 className="input input-bordered input-sm w-20 join-item text-right"
-                value={inputs.cashReturn}
-                onChange={(e) =>
-                  handleInputChange("cashReturn", e.target.value)
-                }
               />
             </div>
           </fieldset>
           <fieldset className="fieldset">
             <div className="divider mt-3 ">
-              <p className="text-base font-semibold">
+              <p className="text-base font-light">
                 I don't have investing strategy 😫
               </p>
             </div>
             <details
-              class="collapse bg-base-100 border border-base-300"
-              name="my-accordion-det-1"
+              className="collapse bg-base-100 border border-base-300"
               open
             >
-              <summary class="collapse-title text-center font-bold">
+              <summary className=" text-center font-bold btn flex">
                 Three investors' strategies for you to choose ⬇️
               </summary>
               <div className="carousel w-full">
@@ -370,90 +310,72 @@ function Home() {
       </div>
 
       {/* 中间：按钮 */}
-      <button
-        className="btn btn-neutral w-80 btn-outline mb-10 text-lg"
-        onClick={handleAnalyze}
-      >
+      <button className="btn btn-neutral w-80 btn-outline mb-10 text-lg">
         Analyze
       </button>
 
       {/* 结果显示 */}
-      {result && (
-        <div className="flex flex-col items-center max-w-4xl w-full">
-          {/* 头部：自由之路 */}
-          <div className="text-center">
-            <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
-            <p className="text-xl mx-30 font-thin">
-              💸 Financial projection based on current strategy
-            </p>
-          </div>
-          <div className="w-full  px-4">
-            {/* 核心区：年龄 金额等 */}
-            <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
-              <p className="text-2xl font-bold text-center mb-6">Result</p>
-              <div className="flex justify-between text-center">
-                <div>
-                  <p className="text-gray-400">Fire Age</p>
-                  <p className="text-5xl font-bold">
-                    {result.fireAge} years old
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-400">Target Number</p>
-                  <p className="text-5xl font-bold">
-                    {formatMoney(result.targetNumber)}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* 视觉图表区 */
-          /* 作为version2的时候添加 */}
 
-          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
-            <p className="text-2xl font-bold text-center mb-6">
-              How your money grows
-            </p>
-            <div className="p-4">
-              <progress
-                className="progress w-full"
-                max="100"
-                value={(result.principal / result.finalAssets) * 100}
-              ></progress>
-              <div className="flex items-center justify-center gap-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-base-content"></div>
-                  <p>Principal: {formatMoney(result.principal)}</p>
-                </div>
-                <div className="flex items-center  gap-3">
-                  <div className="w-3 h-3 bg-gray-400"></div>
-                  <p>Interest: {formatMoney(result.interest)}</p>
-                </div>
+      <div className="flex flex-col items-center max-w-4xl w-full">
+        {/* 头部：自由之路 */}
+        <div className="text-center">
+          <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
+          <p className="text-xl mx-30 font-thin">
+            💸 Financial projection based on current strategy
+          </p>
+        </div>
+        <div className="w-full  px-4">
+          {/* 核心区：年龄 金额等 */}
+          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+            <p className="text-2xl font-bold text-center mb-6">Result</p>
+            <div className="flex justify-between text-center">
+              <div>
+                <p className="text-gray-400">Fire Age</p>
+                <p className="text-5xl font-bold"> years old</p>
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 card text-center ">
-              <div className="card-body bg-base-300  ">
-                Stocks / ETFs Investment
-                <p className="text-4xl font-bold">
-                  {formatMoney(result.breakdown.stock)}
-                </p>
-              </div>
-              <div className="card-body bg-base-300">
-                MMF / Bonds Investment
-                <p className="text-4xl font-bold">
-                  {formatMoney(result.breakdown.bond)}
-                </p>
-              </div>
-              <div className="card-body bg-base-300">
-                Cash / Savings
-                <p className="text-4xl font-bold">
-                  {formatMoney(result.breakdown.cash)}
-                </p>
+              <div>
+                <p className="text-gray-400">Target Number</p>
+                <p className="text-5xl font-bold"></p>
               </div>
             </div>
           </div>
         </div>
-      )}
+        {/* 视觉图表区 */
+        /* 作为version2的时候添加 */}
+
+        <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
+          <p className="text-2xl font-bold text-center mb-6">
+            How your money grows
+          </p>
+          <div className="p-4">
+            <progress className="progress w-full" max="100"></progress>
+            <div className="flex items-center justify-center gap-10">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-base-content"></div>
+                <p>Principal:</p>
+              </div>
+              <div className="flex items-center  gap-3">
+                <div className="w-3 h-3 bg-gray-400"></div>
+                <p>Interest:</p>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-4 card text-center ">
+            <div className="card-body bg-base-300  ">
+              Stocks / ETFs Investment
+              <p className="text-4xl font-bold"></p>
+            </div>
+            <div className="card-body bg-base-300">
+              MMF / Bonds Investment
+              <p className="text-4xl font-bold"></p>
+            </div>
+            <div className="card-body bg-base-300">
+              Cash / Savings
+              <p className="text-4xl font-bold"></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
