@@ -40,9 +40,9 @@ export const calculateFireResult = (inputs) => {
     age++;
 
     //投资品复利
-    stockBal = stockBal * (1 + stockReturn / 100) ** age;
-    bondBal = bondBal * (1 + bondReturn / 100) ** age;
-    cashBal = cashBal * (1 + cashReturn / 100) ** age;
+    stockBal = stockBal * (1 + stockReturn / 100) + stockYearly;
+    bondBal = bondBal * (1 + bondReturn / 100) + bondYearly;
+    cashBal = cashBal * (1 + cashReturn / 100) + cashYearly;
 
     //累计总投入本金
     totalPrincipal += stockYearly + bondYearly + cashYearly;
@@ -55,6 +55,7 @@ export const calculateFireResult = (inputs) => {
 
   return {
     fireAge: age,
+    targetNumber: Math.round(fireNumber),
     finalAssets: Math.round(finalAssets),
     principal: Math.round(totalPrincipal),
     interest: Math.round(finalAssets - totalPrincipal),

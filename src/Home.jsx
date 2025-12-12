@@ -4,7 +4,41 @@ import Warren_Buffett from "./photo/Warren_Buffett.png";
 import Ray_Dalio from "./photo/Ray_Dalio.png";
 import Peter_Lynch from "./photo/Peter_Lynch.png";
 
+import { calculateFireResult } from "./hooks/calculateFireResult";
+
 function Home() {
+  const [inputs, setInputs] = useState({
+    //左侧卡片
+    currentAge: "",
+    currentSavings: "",
+    annualSpending: "",
+    inflationRate: 0,
+    targetAge: 100,
+
+    // 右侧：投资策略
+    stockYearly: "",
+    stockReturn: "",
+    bondYearly: "",
+    bondReturn: "",
+    cashYearly: "",
+    cashReturn: "",
+  });
+
+  const [result, setResult] = useState(null);
+
+  const handleInputChange = (field, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      [field]: value === "" ? "" : Number(value),
+    }));
+  };
+  //把枯燥的数字 1000000 变成好看的 ¥ 1,000,000
+  const formatMoney = (num) => "¥ " + Number(num).toLocaleString();
+  const handleAnalyze = () => {
+    const calculatedResult = calculateFireResult(inputs);
+    setResult(calculatedResult);
+  };
+
   return (
     <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto py-4">
       <div className="text-center max-w-8xl mb-5 ">
@@ -39,6 +73,10 @@ function Home() {
                 min="0"
                 className="input input-bordered w-80 ml-auto"
                 placeholder="25"
+                value={inputs.currentAge}
+                onChange={(e) =>
+                  handleInputChange("currentAge", e.target.value)
+                }
               />
             </div>
 
@@ -52,6 +90,10 @@ function Home() {
                 min="0"
                 className="input input-bordered w-80 ml-auto"
                 placeholder="1,000,000"
+                value={inputs.currentSavings}
+                onChange={(e) =>
+                  handleInputChange("currentSavings", e.target.value)
+                }
               />
             </div>
           </div>
@@ -70,19 +112,27 @@ function Home() {
                 type="number"
                 min="0"
                 className="input input-bordered w-80 ml-auto"
+                value={inputs.annualSpending}
+                onChange={(e) =>
+                  handleInputChange("annualSpending", e.target.value)
+                }
               />
             </div>
 
             {/* Annual Inflation - 水平布局（滑块部分需特殊处理） */}
             <div className="flex flex-row items-center gap-4 mb-2">
               <label className="text-xl font-semibold w-32 whitespace-nowrap">
-                Annual Inflation
+                Annual Inflation({inputs.inflationRate}%)
               </label>
               <input
                 type="range"
                 min={0}
                 max="100"
                 className="range range-neutral ml-auto"
+                value={inputs.inflationRate}
+                onChange={(e) => {
+                  handleInputChange("inflationRate", e.target.value);
+                }}
               />
             </div>
 
@@ -177,15 +227,6 @@ function Home() {
             Your investing strategy
           </p>
 
-          {/* <div className="flex flex-row items-center gap-4 mb-4">
-              <label className="text-xl font-semibold w-32 whitespace-nowrap">
-                Current Savings
-              </label>
-              <input
-                type="number"
-                min="0"
-                className="input input-bordered w-80 ml-auto" */}
-
           <fieldset className="fieldset mb-2">
             <legend className="fieldset-legend text-base font-semibold mb-1">
               Stocks / ETFs Investment yearly
@@ -195,6 +236,8 @@ function Home() {
               min="0"
               className="input input-bordered w-full"
               placeholder="600,000"
+              value={inputs.stockYearly}
+              onChange={(e) => handleInputChange("stockYearly", e.target.value)}
             />
             <div className="flex items-center gap-5 min-w-0 ml-100">
               <p className="text-base ">Growth rate</p>
@@ -202,6 +245,10 @@ function Home() {
                 type="number"
                 step="0.1"
                 className="input input-bordered input-sm w-20 join-item text-right"
+                value={inputs.stockReturn}
+                onChange={(e) =>
+                  handleInputChange("stockReturn", e.target.value)
+                }
               />
             </div>
           </fieldset>
@@ -213,7 +260,8 @@ function Home() {
               type="number"
               min="0"
               className="input input-bordered w-full"
-              // --- 修改 value 绑定 ---
+              value={inputs.bondYearly}
+              onChange={(e) => handleInputChange("bondYearly", e.target.value)}
             />
             <div className="flex items-center gap-5 min-w-0 ml-100">
               <p className="text-base ">Growth rate</p>
@@ -221,6 +269,10 @@ function Home() {
                 type="number"
                 step="0.1"
                 className="input input-bordered input-sm w-20 join-item text-right"
+                value={inputs.bondReturn}
+                onChange={(e) =>
+                  handleInputChange("bondReturn", e.target.value)
+                }
               />
             </div>
           </fieldset>
@@ -232,7 +284,8 @@ function Home() {
               type="number"
               min="0"
               className="input input-bordered w-full"
-              // --- 修改 value 绑定 ---
+              value={inputs.cashYearly}
+              onChange={(e) => handleInputChange("cashYearly", e.target.value)}
             />
             <div className="flex items-center gap-5 min-w-0 ml-100">
               <p className="text-base ">Growth rate</p>
@@ -240,6 +293,10 @@ function Home() {
                 type="number"
                 step="0.1"
                 className="input input-bordered input-sm w-20 join-item text-right"
+                value={inputs.cashReturn}
+                onChange={(e) =>
+                  handleInputChange("cashReturn", e.target.value)
+                }
               />
             </div>
           </fieldset>
@@ -310,72 +367,91 @@ function Home() {
       </div>
 
       {/* 中间：按钮 */}
-      <button className="btn btn-neutral w-80 btn-outline mb-10 text-lg">
+      <button
+        className="btn btn-neutral w-80 btn-outline mb-10 text-lg "
+        onClick={handleAnalyze}
+      >
         Analyze
       </button>
 
-      {/* 结果显示 */}
+      {result && (
+        <div className="flex flex-col items-center max-w-4xl w-full">
+          {/* 头部：自由之路 */}
+          <div className="text-center">
+            <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
+            <p className="text-xl mx-30 font-thin">
+              💸 Financial projection based on current strategy
+            </p>
+          </div>
+          <div className="w-full  px-4">
+            {/* 核心区：年龄 金额等 */}
+            <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
+              <p className="text-2xl font-bold text-center mb-6">Result</p>
+              <div className="flex justify-between text-center">
+                <div>
+                  <p className="text-gray-400">Fire Age</p>
+                  <p className="text-5xl font-bold">
+                    {" "}
+                    {result.fireAge}years old
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-400">Target Number</p>
 
-      <div className="flex flex-col items-center max-w-4xl w-full">
-        {/* 头部：自由之路 */}
-        <div className="text-center">
-          <p className="font-semibold text-4xl mb-1">Your FIRE Path</p>
-          <p className="text-xl mx-30 font-thin">
-            💸 Financial projection based on current strategy
-          </p>
-        </div>
-        <div className="w-full  px-4">
-          {/* 核心区：年龄 金额等 */}
-          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
-            <p className="text-2xl font-bold text-center mb-6">Result</p>
-            <div className="flex justify-between text-center">
-              <div>
-                <p className="text-gray-400">Fire Age</p>
-                <p className="text-5xl font-bold"> years old</p>
-              </div>
-              <div>
-                <p className="text-gray-400">Target Number</p>
-                <p className="text-5xl font-bold"></p>
+                  <p className="text-5xl font-bold">
+                    {formatMoney(result.targetNumber)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* 视觉图表区 */
-        /* 作为version2的时候添加 */}
+          {/* 视觉图表区 */
+          /* 作为version2的时候添加 */}
 
-        <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
-          <p className="text-2xl font-bold text-center mb-6">
-            How your money grows
-          </p>
-          <div className="p-4">
-            <progress className="progress w-full" max="100"></progress>
-            <div className="flex items-center justify-center gap-10">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-base-content"></div>
-                <p>Principal:</p>
+          <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm ">
+            <p className="text-2xl font-bold text-center mb-6">
+              How your money grows
+            </p>
+            <div className="p-4">
+              <progress
+                className="progress w-full"
+                max="100"
+                value={(result.principal / result.finalAssets) * 100}
+              ></progress>
+              <div className="flex items-center justify-center gap-10">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-base-content"></div>
+                  <p>Principal:</p>
+                </div>
+                <div className="flex items-center  gap-3">
+                  <div className="w-3 h-3 bg-gray-400"></div>
+                  <p>Interest:</p>
+                </div>
               </div>
-              <div className="flex items-center  gap-3">
-                <div className="w-3 h-3 bg-gray-400"></div>
-                <p>Interest:</p>
+            </div>
+            <div className="grid grid-cols-3 gap-4 card text-center ">
+              <div className="card-body bg-base-300  ">
+                Stocks / ETFs Investment
+                <p className="text-4xl font-bold">
+                  {formatMoney(result.breakdown.stock)}
+                </p>
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-4 card text-center ">
-            <div className="card-body bg-base-300  ">
-              Stocks / ETFs Investment
-              <p className="text-4xl font-bold"></p>
-            </div>
-            <div className="card-body bg-base-300">
-              MMF / Bonds Investment
-              <p className="text-4xl font-bold"></p>
-            </div>
-            <div className="card-body bg-base-300">
-              Cash / Savings
-              <p className="text-4xl font-bold"></p>
+              <div className="card-body bg-base-300">
+                MMF / Bonds Investment
+                <p className="text-4xl font-bold">
+                  {formatMoney(result.breakdown.bond)}
+                </p>
+              </div>
+              <div className="card-body bg-base-300">
+                Cash / Savings
+                <p className="text-4xl font-bold">
+                  {formatMoney(result.breakdown.cash)}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
