@@ -10,14 +10,14 @@ function ResultSection(
       <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
         <p className="text-4xl font-bold text-center mb-6">Your Situation</p>
         {/* Current Age */}
-        <div className="flex flex-row items-center  gap-4 mb-4">
-          <label className="text-xl font-semibold w-32 whitespace-nowrap">
+        <div className="flex flex-col md:flex-row items-center  gap-4 mb-4">
+          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
             Current Age
           </label>
           <input
             type="number"
             min="0"
-            className="input input-bordered w-80 ml-auto"
+            className="input input-bordered w-full md:w-80 ml-auto"
             placeholder="25"
             value={inputs.currentAge}
             onChange={(e) => handleInputChange("currentAge", e.target.value)}
@@ -26,14 +26,14 @@ function ResultSection(
         </div>
 
         {/* Current Savings  */}
-        <div className="flex flex-row items-center gap-4 mb-4">
-          <label className="text-xl font-semibold w-32 whitespace-nowrap">
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
             Current Savings
           </label>
           <input
             type="number"
             min="0"
-            className="input input-bordered w-80 ml-auto"
+            className="input input-bordered w-full md:w-80 ml-auto"
             placeholder="1,000,000"
             value={inputs.currentSavings}
             onChange={(e) =>
@@ -46,14 +46,14 @@ function ResultSection(
       <div className="bg-base-100 p-8 pb-4 rounded-xl mt-10 w-full shadow-sm">
         <p className="text-4xl font-bold text-center mb-6">Your retirement</p>
         {/* Target Age */}
-        <div className="flex flex-row items-center gap-4 mb-4">
-          <label className="text-xl font-semibold w-32 whitespace-nowrap">
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
             Post-FIRE Annual Spending
           </label>
           <input
             type="number"
             min="0"
-            className="input input-bordered w-80 ml-auto"
+            className="input input-bordered w-full md:w-80 ml-auto"
             value={inputs.annualSpending}
             onChange={(e) =>
               handleInputChange("annualSpending", e.target.value)
@@ -63,14 +63,17 @@ function ResultSection(
         </div>
 
         {/* Annual Inflation - 水平布局（滑块部分需特殊处理） */}
-        <div className="flex flex-row items-center gap-4 mb-2">
-          <label className="text-xl font-semibold w-32 whitespace-nowrap">
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-2">
+          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
             Annual Inflation({inputs.inflationRate}%)
           </label>
           <input
             type="range"
             min={0}
-            max="100"
+            max="10"
+            w-full
+            md:w-80
+            md:ml-auto
             className="range range-neutral ml-auto"
             value={inputs.inflationRate}
             onChange={(e) => {

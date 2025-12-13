@@ -30,7 +30,7 @@ function StrategyCard(
           onChange={(e) => handleInputChange("stockYearly", e.target.value)}
           onWheel={(e) => e.target.blur()}
         />
-        <div className="flex items-center gap-5 min-w-0 ml-100">
+        <div className="flex items-center justify-end gap-2 mt-2">
           <p className="text-base ">Growth rate</p>
           <input
             type="number"
@@ -55,7 +55,7 @@ function StrategyCard(
           onChange={(e) => handleInputChange("bondYearly", e.target.value)}
           onWheel={(e) => e.target.blur()}
         />
-        <div className="flex items-center gap-5 min-w-0 ml-100">
+        <div className="flex items-center justify-end gap-2 mt-2">
           <p className="text-base ">Growth rate</p>
           <input
             type="number"
@@ -80,7 +80,7 @@ function StrategyCard(
           onChange={(e) => handleInputChange("cashYearly", e.target.value)}
           onWheel={(e) => e.target.blur()}
         />
-        <div className="flex items-center gap-5 min-w-0 ml-100">
+        <div className="flex items-center justify-end gap-2 mt-2">
           <p className="text-base ">Growth rate</p>
           <input
             type="number"

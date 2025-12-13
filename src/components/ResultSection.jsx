@@ -60,7 +60,7 @@ function ResultSection({ result, resultRef }) {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 card text-center ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 card text-center ">
           <div className="card-body bg-base-300  ">
             Stocks / ETFs Investment
             <p className="text-4xl font-bold">
