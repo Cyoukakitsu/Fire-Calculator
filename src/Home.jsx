@@ -4,6 +4,7 @@ import { usePageScroll } from "./hooks/usePageScroll";
 import SituationCard from "./components/SituationCard";
 import StrategyCard from "./components/StrategyCard";
 import ResultSection from "./components/ResultSection";
+
 function Home() {
   const { inputs, handleInputChange, result, handleAnalyze } =
     useFireCalculator();
@@ -18,7 +19,8 @@ function Home() {
           <p className="text-4xl mt-4">Find your Free Path</p>
         </div>
 
-        <p className="text-xl mx-30 font-thin">
+        {/* 📱 修复：mx-30 在手机上会把字挤没。改为 max-w 控制宽度 + mx-auto 居中 */}
+        <p className="text-xl max-w-3xl mx-auto px-6 font-thin">
           FIRE stands for Financial Independence, Retire Early. Our calculator
           can help you create an investment and savings plan that may allow you
           to retire years earlier than usual, joining the growing community of
@@ -27,7 +29,7 @@ function Home() {
       </div>
 
       <div className="flex justify-center gap-10 flex-wrap items-start w-full px-4 mb-10">
-        {/*  左侧 ：卡片 1 */}
+        {/* 左侧 ：卡片 1 */}
         <SituationCard
           inputs={inputs}
           handleInputChange={handleInputChange}
@@ -35,12 +37,13 @@ function Home() {
           onScrollToModels={handlers.handleScrollToModels}
         />
 
-        {/*  右侧：卡片 3 */}
+        {/* 右侧：卡片 2 */}
         <StrategyCard
           inputs={inputs}
           handleInputChange={handleInputChange}
           investorRef={refs.investorRef}
-          onScrollToInvestor={handlers.handleScrollToInvestor}
+          // ⚠️ 注意：这里建议统一用复数 Investors，确保和你 StrategyCard 里接收的名字一致
+          onScrollToInvestors={handlers.handleScrollToInvestors}
         />
       </div>
 
@@ -53,7 +56,12 @@ function Home() {
       </button>
 
       {/* 结果区 */}
-      <ResultSection result={result} resultRef={refs.resultRef} />
+      <ResultSection
+        result={result}
+        resultRef={refs.resultRef}
+        // 🚨 关键修复：必须传入 inputs，否则通胀率(Inflation)无法显示
+        inputs={inputs}
+      />
     </div>
   );
 }

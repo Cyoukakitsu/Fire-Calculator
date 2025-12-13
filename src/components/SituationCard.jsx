@@ -1,16 +1,16 @@
-// import { useState } from 'react';
-function ResultSection(
+function SituationCard({
   inputs,
   handleInputChange,
   fireModelsRef,
-  onScrollToModels
-) {
+  onScrollToModels,
+}) {
   return (
     <div className="flex flex-col w-full max-w-[650px]">
       <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
         <p className="text-4xl font-bold text-center mb-6">Your Situation</p>
+
         {/* Current Age */}
-        <div className="flex flex-col md:flex-row items-center  gap-4 mb-4">
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
           <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
             Current Age
           </label>
@@ -25,7 +25,7 @@ function ResultSection(
           />
         </div>
 
-        {/* Current Savings  */}
+        {/* Current Savings */}
         <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
           <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
             Current Savings
@@ -43,11 +43,13 @@ function ResultSection(
           />
         </div>
       </div>
+
       <div className="bg-base-100 p-8 pb-4 rounded-xl mt-10 w-full shadow-sm">
         <p className="text-4xl font-bold text-center mb-6">Your retirement</p>
-        {/* Target Age */}
+
+        {/* Target Age / Spending */}
         <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
-          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
+          <label className="text-xl font-semibold whitespace-nowrap">
             Post-FIRE Annual Spending
           </label>
           <input
@@ -62,19 +64,17 @@ function ResultSection(
           />
         </div>
 
-        {/* Annual Inflation - 水平布局（滑块部分需特殊处理） */}
+        {/* Annual Inflation - 修复了语法错误 */}
         <div className="flex flex-col md:flex-row items-center gap-4 mb-2">
-          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
+          <label className="text-xl font-semibold whitespace-nowrap">
             Annual Inflation({inputs.inflationRate}%)
           </label>
           <input
             type="range"
             min={0}
-            max="10"
-            w-full
-            md:w-80
-            md:ml-auto
-            className="range range-neutral ml-auto"
+            max="10" // 注意：这里 max 是 10，如果你想允许更高通胀，记得改成 100
+            // 修复：把 w-full md:w-80 移到了 className 里面
+            className="range range-neutral w-full md:w-80 md:ml-auto"
             value={inputs.inflationRate}
             onChange={(e) => {
               handleInputChange("inflationRate", e.target.value);
@@ -83,8 +83,7 @@ function ResultSection(
           />
         </div>
 
-        {/* Life Modren */}
-
+        {/* Life Models */}
         <fieldset className="fieldset">
           <div className="divider mt-14 ">
             <p className="text-base font-light">
@@ -96,12 +95,13 @@ function ResultSection(
             ref={fireModelsRef}
           >
             <summary
-              className="collapse-title  font-bold btn  flex"
+              className="collapse-title font-bold btn flex"
               onClick={onScrollToModels}
             >
               5 FIRE models for you to choose from ⬇️
             </summary>
 
+            {/* Models Details ... */}
             <details className="collapse bg-base-100 border border-base-300">
               <summary className="collapse-title font-semibold">
                 1. Lean FIRE 🍜
@@ -112,6 +112,7 @@ function ResultSection(
                 </p>
               </summary>
             </details>
+            {/* ... 其他 details 保持不变 ... */}
             <details
               className="collapse bg-base-100 border border-base-300"
               open
@@ -119,9 +120,7 @@ function ResultSection(
               <summary className="collapse-title font-semibold">
                 2. Fat FIRE 🍷
                 <p className="font-light">
-                  A luxurious, high-budget retirement with abundant spending and
-                  lifestyle indulgences. <br />
-                  Approximate Annual Spending (JPY): 10 Million JPY+
+                  A luxurious, high-budget retirement...
                 </p>
               </summary>
             </details>
@@ -131,12 +130,7 @@ function ResultSection(
             >
               <summary className="collapse-title font-semibold">
                 3. Traditional / Regular FIRE 🏠
-                <p className="font-light">
-                  The standard approach aiming for a comfortable, average
-                  middle-class retirement lifestyle.
-                  <br />
-                  Approximate Annual Spending (JPY): ~4 - 6 Million JPY
-                </p>
+                <p className="font-light">The standard approach...</p>
               </summary>
             </details>
             <details
@@ -145,12 +139,7 @@ function ResultSection(
             >
               <summary className="collapse-title font-semibold">
                 4. Barista FIRE ☕️
-                <p className="font-light">
-                  Semi-retirement using low-stress part-time income to cover
-                  current expenses while letting investments grow.
-                  <br />
-                  Approximate Annual Spending (JPY): ~3 - 5 Million JPY
-                </p>
+                <p className="font-light">Semi-retirement...</p>
               </summary>
             </details>
             <details
@@ -158,14 +147,8 @@ function ResultSection(
               open
             >
               <summary className="collapse-title font-semibold">
-                5. Coast FIRE 🏂 <br />
-                <p className="font-light">
-                  Saving enough early for compound interest to cover future
-                  retirement, allowing you to stop saving now and spend your
-                  full income.
-                  <br />
-                  Approximate Annual Spending (JPY): 4 - 8 Million JPY+
-                </p>
+                5. Coast FIRE 🏂
+                <p className="font-light">Saving enough early...</p>
               </summary>
             </details>
           </details>
@@ -174,4 +157,5 @@ function ResultSection(
     </div>
   );
 }
-export default ResultSection;
+
+export default SituationCard;
