@@ -13,10 +13,10 @@ function Home() {
 
   return (
     <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto py-4">
-      <div className="text-center max-w-8xl mb-5 ">
-        <div className="font-semibold text-6xl mb-4">
+      <div className="text-center max-w-8xl mb-5 px-4">
+        <div className="font-semibold text-4xl md:text-6xl mb-4">
           FIRE calculator
-          <p className="text-4xl mt-4">Find your Free Path</p>
+          <p className="text-xl md:text-4xl mt-4">Find your Free Path</p>
         </div>
 
         {/* 📱 修复：mx-30 在手机上会把字挤没。改为 max-w 控制宽度 + mx-auto 居中 */}
@@ -49,7 +49,7 @@ function Home() {
 
       {/* 中间：按钮 */}
       <button
-        className="btn btn-neutral w-80 btn-outline mb-10 text-lg "
+        className="btn btn-neutral w-11/12 md:w-80 btn-outline mb-10 text-lg "
         onClick={handleAnalyze}
       >
         Analyze
@@ -59,7 +59,6 @@ function Home() {
       <ResultSection
         result={result}
         resultRef={refs.resultRef}
-        // 🚨 关键修复：必须传入 inputs，否则通胀率(Inflation)无法显示
         inputs={inputs}
       />
     </div>

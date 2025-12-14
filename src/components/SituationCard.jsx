@@ -1,3 +1,5 @@
+import React from "react";
+
 function SituationCard({
   inputs,
   handleInputChange,
@@ -6,18 +8,21 @@ function SituationCard({
 }) {
   return (
     <div className="flex flex-col w-full max-w-[650px]">
-      <div className="bg-base-100 p-8 rounded-xl mt-10 w-full shadow-sm">
-        <p className="text-4xl font-bold text-center mb-6">Your Situation</p>
+      {/* --- 上半部分：Situation --- */}
+      <div className="bg-base-100 p-6 md:p-8 rounded-xl mt-10 w-full shadow-sm">
+        <p className="text-3xl md:text-4xl font-bold text-center mb-6">
+          Your Situation
+        </p>
 
         {/* Current Age */}
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
-          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-4">
+          <label className="text-lg md:text-xl font-semibold w-full md:w-40 text-left md:text-right">
             Current Age
           </label>
           <input
             type="number"
             min="0"
-            className="input input-bordered w-full md:w-80 ml-auto"
+            className="input input-bordered w-full md:w-80"
             placeholder="25"
             value={inputs.currentAge}
             onChange={(e) => handleInputChange("currentAge", e.target.value)}
@@ -26,14 +31,14 @@ function SituationCard({
         </div>
 
         {/* Current Savings */}
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
-          <label className="text-xl font-semibold w-full md:w-32 whitespace-nowrap">
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-4">
+          <label className="text-lg md:text-xl font-semibold w-full md:w-40 text-left md:text-right">
             Current Savings
           </label>
           <input
             type="number"
             min="0"
-            className="input input-bordered w-full md:w-80 ml-auto"
+            className="input input-bordered w-full md:w-80"
             placeholder="1,000,000"
             value={inputs.currentSavings}
             onChange={(e) =>
@@ -44,18 +49,24 @@ function SituationCard({
         </div>
       </div>
 
-      <div className="bg-base-100 p-8 pb-4 rounded-xl mt-10 w-full shadow-sm">
-        <p className="text-4xl font-bold text-center mb-6">Your retirement</p>
+      {/* --- 下半部分：Retirement (重点修改区域) --- */}
+      <div className="bg-base-100 p-6 md:p-8 pb-4 rounded-xl mt-10 w-full shadow-sm">
+        <p className="text-3xl md:text-4xl font-bold text-center mb-6">
+          Your retirement
+        </p>
 
-        {/* Target Age / Spending */}
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
-          <label className="text-xl font-semibold whitespace-nowrap">
+        {/* Target Spending - 修复：允许换行，调整宽度 */}
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-4">
+          {/* 1. 去掉 whitespace-nowrap：防止手机上撑爆屏幕 
+             2. md:w-64：给长文字更多空间，并右对齐
+          */}
+          <label className="text-lg md:text-xl font-semibold w-full md:w-64 text-left md:text-right">
             Post-FIRE Annual Spending
           </label>
           <input
             type="number"
             min="0"
-            className="input input-bordered w-full md:w-80 ml-auto"
+            className="input input-bordered w-full md:w-80"
             value={inputs.annualSpending}
             onChange={(e) =>
               handleInputChange("annualSpending", e.target.value)
@@ -64,92 +75,127 @@ function SituationCard({
           />
         </div>
 
-        {/* Annual Inflation - 修复了语法错误 */}
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-2">
-          <label className="text-xl font-semibold whitespace-nowrap">
-            Annual Inflation({inputs.inflationRate}%)
+        {/* Annual Inflation */}
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-2">
+          <label className="text-lg md:text-xl font-semibold w-full md:w-64 text-left md:text-right">
+            Annual Inflation ({inputs.inflationRate}%)
           </label>
           <input
             type="range"
             min={0}
-            max="10" // 注意：这里 max 是 10，如果你想允许更高通胀，记得改成 100
-            // 修复：把 w-full md:w-80 移到了 className 里面
-            className="range range-neutral w-full md:w-80 md:ml-auto"
+            max="10"
+            className="range range-neutral w-full md:w-80"
             value={inputs.inflationRate}
-            onChange={(e) => {
-              handleInputChange("inflationRate", e.target.value);
-            }}
+            onChange={(e) => handleInputChange("inflationRate", e.target.value)}
             onWheel={(e) => e.target.blur()}
           />
         </div>
 
-        {/* Life Models */}
-        <fieldset className="fieldset">
-          <div className="divider mt-14 ">
-            <p className="text-base font-light">
+        {/* Life Models - 修复：重构折叠面板结构 */}
+        <fieldset className="fieldset w-full">
+          <div className="divider mt-10">
+            <p className="text-sm md:text-base font-light text-center">
               I don't know how much I'll spend after FIRE 😫
             </p>
           </div>
+
           <details
-            className="collapse bg-base-100 border border-base-300 "
+            className="collapse bg-base-100 border border-base-300"
             ref={fireModelsRef}
           >
             <summary
-              className="collapse-title font-bold btn flex"
+              className="collapse-title font-bold btn h-auto py-3 flex items-center justify-center"
               onClick={onScrollToModels}
             >
               5 FIRE models for you to choose from ⬇️
             </summary>
 
-            {/* Models Details ... */}
-            <details className="collapse bg-base-100 border border-base-300">
-              <summary className="collapse-title font-semibold">
+            {/* 修改说明：
+               DaisyUI 的 collapse 组件，标准写法是：
+               <summary>标题</summary>
+               <div className="collapse-content">内容</div>
+               你之前把内容全塞在 summary 里了，这会导致手机上显示混乱。
+            */}
+
+            {/* Model 1 */}
+            <details className="collapse bg-base-100 border border-base-300 mt-2">
+              <summary className="collapse-title font-semibold text-lg">
                 1. Lean FIRE 🍜
-                <p className="font-light">
+              </summary>
+              <div className="collapse-content">
+                <p className="font-light text-sm md:text-base mt-2">
                   A minimalist retirement achieved through extreme frugality and
-                  very low living expenses. <br /> Approximate Annual Spending
-                  (JPY): ~1.5 - 2.5 Million JPY
+                  very low living expenses. <br />
+                  <span className="font-bold">
+                    Approximate Annual Spending: ~1.5 - 2.5 Million JPY
+                  </span>
                 </p>
-              </summary>
+              </div>
             </details>
-            {/* ... 其他 details 保持不变 ... */}
-            <details
-              className="collapse bg-base-100 border border-base-300"
-              open
-            >
-              <summary className="collapse-title font-semibold">
+
+            {/* Model 2 */}
+            <details className="collapse bg-base-100 border border-base-300 mt-2">
+              <summary className="collapse-title font-semibold text-lg">
                 2. Fat FIRE 🍷
-                <p className="font-light">
-                  A luxurious, high-budget retirement...
+              </summary>
+              <div className="collapse-content">
+                <p className="font-light text-sm md:text-base mt-2">
+                  A luxurious, high-budget retirement with abundant spending and
+                  lifestyle indulgences. <br />
+                  <span className="font-bold">
+                    Approximate Annual Spending: 10 Million JPY+
+                  </span>
                 </p>
-              </summary>
+              </div>
             </details>
-            <details
-              className="collapse bg-base-100 border border-base-300"
-              open
-            >
-              <summary className="collapse-title font-semibold">
+
+            {/* Model 3 */}
+            <details className="collapse bg-base-100 border border-base-300 mt-2">
+              <summary className="collapse-title font-semibold text-lg">
                 3. Traditional / Regular FIRE 🏠
-                <p className="font-light">The standard approach...</p>
               </summary>
+              <div className="collapse-content">
+                <p className="font-light text-sm md:text-base mt-2">
+                  The standard approach aiming for a comfortable, average
+                  middle-class retirement lifestyle. <br />
+                  <span className="font-bold">
+                    Approximate Annual Spending: ~4 - 6 Million JPY
+                  </span>
+                </p>
+              </div>
             </details>
-            <details
-              className="collapse bg-base-100 border border-base-300"
-              open
-            >
-              <summary className="collapse-title font-semibold">
+
+            {/* Model 4 */}
+            <details className="collapse bg-base-100 border border-base-300 mt-2">
+              <summary className="collapse-title font-semibold text-lg">
                 4. Barista FIRE ☕️
-                <p className="font-light">Semi-retirement...</p>
               </summary>
+              <div className="collapse-content">
+                <p className="font-light text-sm md:text-base mt-2">
+                  Semi-retirement using low-stress part-time income to cover
+                  current expenses while letting investments grow. <br />
+                  <span className="font-bold">
+                    Approximate Annual Spending: ~3 - 5 Million JPY
+                  </span>
+                </p>
+              </div>
             </details>
-            <details
-              className="collapse bg-base-100 border border-base-300"
-              open
-            >
-              <summary className="collapse-title font-semibold">
+
+            {/* Model 5 */}
+            <details className="collapse bg-base-100 border border-base-300 mt-2">
+              <summary className="collapse-title font-semibold text-lg">
                 5. Coast FIRE 🏂
-                <p className="font-light">Saving enough early...</p>
               </summary>
+              <div className="collapse-content">
+                <p className="font-light text-sm md:text-base mt-2">
+                  Saving enough early for compound interest to cover future
+                  retirement, allowing you to stop saving now and spend your
+                  full income. <br />
+                  <span className="font-bold">
+                    Approximate Annual Spending: 4 - 8 Million JPY+
+                  </span>
+                </p>
+              </div>
             </details>
           </details>
         </fieldset>
