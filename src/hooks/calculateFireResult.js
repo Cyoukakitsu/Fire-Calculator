@@ -33,6 +33,16 @@ export const calculateFireResult = (inputs) => {
   // 总投入本金初始化 = 现有的存款
   let totalPrincipal = currentSavings;
 
+  //创建一个空数组，用来存每一年的记录
+  const chartData = [];
+
+  // 把起跑线（现在的状态）先存进去
+  chartData.push({
+    age: age,
+    assets: Math.round(stockBal + bondBal + cashBal + currentSavings),
+    principal: Math.round(totalPrincipal),
+  });
+
   while (age < targetAge) {
     //计算总资产：投资品+存款
     const totalAssets = stockBal + bondBal + cashBal + currentSavings;
@@ -49,6 +59,13 @@ export const calculateFireResult = (inputs) => {
 
     //通胀
     fireNumber = fireNumber * (1 + inflationRate / 100);
+
+    //把这一年的计算结果存进数组
+    chartData.push({
+      age: age,
+      assets: Math.round(stockBal + bondBal + cashBal + currentSavings),
+      principal: Math.round(totalPrincipal),
+    });
   }
 
   const finalAssets = stockBal + bondBal + cashBal + currentSavings;
@@ -64,5 +81,6 @@ export const calculateFireResult = (inputs) => {
       bond: Math.round(bondBal),
       cash: Math.round(cashBal + currentSavings),
     },
+    chartData: chartData,
   };
 };

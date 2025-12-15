@@ -12,14 +12,13 @@ function Home() {
   const { refs, handlers } = usePageScroll(result);
 
   return (
-    <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto py-4">
+    <div className="bg-base-200 min-h-screen w-full flex flex-col items-center overflow-y-auto overflow-x-hidden py-4">
       <div className="text-center max-w-8xl mb-5 px-4">
         <div className="font-semibold text-4xl md:text-6xl mb-4">
           FIRE calculator
           <p className="text-xl md:text-4xl mt-4">Find your Free Path</p>
         </div>
 
-        {/* 📱 修复：mx-30 在手机上会把字挤没。改为 max-w 控制宽度 + mx-auto 居中 */}
         <p className="text-xl max-w-3xl mx-auto px-6 font-thin">
           FIRE stands for Financial Independence, Retire Early. Our calculator
           can help you create an investment and savings plan that may allow you
@@ -42,8 +41,7 @@ function Home() {
           inputs={inputs}
           handleInputChange={handleInputChange}
           investorRef={refs.investorRef}
-          // ⚠️ 注意：这里建议统一用复数 Investors，确保和你 StrategyCard 里接收的名字一致
-          onScrollToInvestors={handlers.handleScrollToInvestors}
+          onScrollToInvestors={handlers.handleScrollToInvestor}
         />
       </div>
 
@@ -56,11 +54,13 @@ function Home() {
       </button>
 
       {/* 结果区 */}
-      <ResultSection
-        result={result}
-        resultRef={refs.resultRef}
-        inputs={inputs}
-      />
+      {result && (
+        <ResultSection
+          result={result}
+          resultRef={refs.resultRef}
+          inputs={inputs}
+        />
+      )}
     </div>
   );
 }
